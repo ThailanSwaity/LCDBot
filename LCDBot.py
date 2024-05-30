@@ -33,6 +33,7 @@ class MyClient(discord.Client):
 
     async def on_message(self, message):
         print(f'Message from {message.author}: {message.content}')
+        lcd.clear()
         lcd.setCursor(0,0)
         lcd.message('m: ' + message.content + '\n')
 
