@@ -27,6 +27,9 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 class MyClient(discord.Client):
     async def on_ready(self):
         print(f'Logged on as {self.user}!')
+        lcd.clear()
+        mcp.output(3,1) # Turn on LCD backlight
+        lcd.begin(16,2) # set number of LCD lines and columns
 
     async def on_message(self, message):
         print(f'Message from {message.author}: {message.content}')
