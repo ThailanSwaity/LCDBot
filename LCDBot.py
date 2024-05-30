@@ -2,10 +2,10 @@
 
 import os 
 
-import Discord
-from dotenv import load_env
+import discord
+from dotenv import load_dotenv
 
-load_env()
+load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 class MyClient(discord.Client):
@@ -19,4 +19,4 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 client = MyClient(intents=intents)
-client.run('')
+client.run(TOKEN)
