@@ -34,7 +34,7 @@ class MyClient(discord.Client):
     async def on_message(self, message):
         print(f'Message from {message.author}: {message.content}')
         lcd.setCursor(0,0)
-        lcd.message(message.content)
+        lcd.message('m: ' + message.content + '\n')
 
 intents = discord.Intents.default()
 intents.message_content = True
