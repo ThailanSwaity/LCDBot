@@ -35,7 +35,12 @@ class MyClient(discord.Client):
         print(f'Message from {message.author}: {message.content}')
         lcd.clear()
         lcd.setCursor(0,0)
-        lcd.message('m: ' + message.content + '\n')
+        if (len(message.content) > 16):
+            lcd.message(message.content[:16])
+            lcd.setCursor(0,1)
+            lcd.message(message.content[16:])
+        else:
+            lcd.message(message.content)
 
 intents = discord.Intents.default()
 intents.message_content = True
