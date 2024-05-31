@@ -1,8 +1,3 @@
-import RPi.GPIO as GPIO
-
-buttonPin = 12
-backlightState = True
-
 from PCF8574 import PCF8574_GPIO
 from Adafruit_LCD1602 import Adafruit_CharLCD
 
@@ -41,6 +36,10 @@ class MyClient(discord.Client):
         print(f'Message from {message.author}: {message.content}')
         lcd.clear()
         lcd.setCursor(0,0)
+        if (message.content=='off'):
+            mcp.output(3,0)
+        if (message.content=='on'):
+            mcp.output(3,1)
         if (len(message.content) > 16):
             lcd.message(message.content[:16])
             lcd.setCursor(0,1)
@@ -55,18 +54,9 @@ intents.message_content = True
 client = MyClient(intents=intents)
 client.run(TOKEN)
 
-def buttonEvent(channel):
-    global backlightState
-    backlightState = not backlightState
-    mcp.output(3,backlightState)
-
 if __name__ == "__main__":
 
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
     while(1):
-        GPIO.add_event_detect(buttonPin,GPIO.FALLING,callback=buttonEvent,bouncetime=300)
 
 #        m_length = len(current_message)
 #        if (m_length > 16):
